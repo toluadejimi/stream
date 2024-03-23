@@ -764,8 +764,6 @@ class AndroidApiController extends MainAPIController
     public function verify(request $request){
 
 
-        $
-
 
         if ($result['status']==true && $result['data']['status'] == 'success') {
             
@@ -834,15 +832,6 @@ class AndroidApiController extends MainAPIController
         }
     }
       
-
-
-    }
-
-
-
-
-
-
      
     public function transaction_add()
     {
