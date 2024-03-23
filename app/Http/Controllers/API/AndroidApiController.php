@@ -755,7 +755,7 @@ class AndroidApiController extends MainAPIController
 
         return \Response::json(array(            
             'status' => true,
-            'sata' => $response
+            'data' => $response
         ));
     }
 
