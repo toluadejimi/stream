@@ -1,0 +1,6 @@
+/storage
+/node_modules
+/public/hot
+/public
+.env
+.env.backup

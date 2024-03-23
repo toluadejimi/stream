@@ -1,0 +1,28 @@
+.navbar fixed-bottom navbar-light bg-light {
+  background: #F1F1F1;
+  position: fixed;
+  bottom: 0;
+  height: 65px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+
+
+.navbar-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.navbar-brand img {
+  width: 30px;
+}
+
+@media screen and (min-width: 667px) {
+  .navbar fixed-bottom navbar-light bg-light {
+  display: none;
+  }
+}
