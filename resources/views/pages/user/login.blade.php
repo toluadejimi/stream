@@ -35,6 +35,29 @@
         <div class="container login-part">
           <div class="row">
           <div class="col-12 col-lg-12 col-xl-12 mx-auto">
+
+
+            @if ($errors->any())
+                <div class="alert alert-danger my-4">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+            @if (session()->has('error'))
+                <div class="alert alert-danger mt-2">
+                    {{ session()->get('error') }}
+                </div>
+            @endif
+
+
             <h2 class="form-title-item mb-4">{{trans('words.login_text')}}</h2>
              {!! Form::open(array('url' => 'login','class'=>'','id'=>'loginform','role'=>'form')) !!}  
 

@@ -2,36 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Session;
 use App\User;
-use App\Slider;
-use App\Series;
-use App\Movies;
-use App\HomeSections;
-use App\Sports;
 use App\Pages;
-use App\RecentlyWatched;
 use App\LiveTV;
-use App\SubscriptionPlan;
+use App\Movies;
+use App\Series;
+use App\Slider;
+use App\Sports;
 use App\UserDevice;
+use App\HomeSections;
+use App\Http\Requests;
+use App\RecentlyWatched;
+
+use App\SubscriptionPlan;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use Intervention\Image\Facades\Image; 
-
-
-use Session;
-
-use ProtoneMedia\LaravelFFMpeg;
-use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
-use ProtoneMedia\LaravelFFMpeg\Support\ServiceProvider;
-use FFMpeg\Coordinate\Dimension;
 use FFMpeg\Format\Video\X264;
-use FFMpeg\Filters\AdvancedMedia\ComplexFilters;
+use ProtoneMedia\LaravelFFMpeg;
+use FFMpeg\Coordinate\Dimension;
+
+
+use Illuminate\Support\Facades\DB;
+
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Validator;
+use Intervention\Image\Facades\Image; 
 use FFMpeg\Filters\Video\WatermarkFilter;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
+use FFMpeg\Filters\AdvancedMedia\ComplexFilters;
+use ProtoneMedia\LaravelFFMpeg\Support\ServiceProvider;
 
 
 class IndexController extends Controller
@@ -241,7 +244,6 @@ class IndexController extends Controller
         
         if (Auth::check()) {
             
-                        
             // return redirect('dashboard'); 
         }
 
@@ -363,7 +365,9 @@ class IndexController extends Controller
         }
         else
         {
-            return redirect('dashboard'); 
+            $email=Auth::user()->email;
+            $url = url('')."?email=$email";
+            return redirect($url); 
         }
         
     }
@@ -429,20 +433,18 @@ class IndexController extends Controller
                 'email' => $user_email
                 );    
 
-            \Mail::send('emails.welcome', $data_email, function($message) use ($user_name,$user_email){
+            Mail::send('emails.welcome', $data_email, function($message) use ($user_name,$user_email){
                 $message->to($user_email, $user_name)
                 ->from(getcong('site_email'), getcong('site_name'))
                 ->subject('Welcome to '.getcong('site_name'));
             });    
         }catch (\Throwable $e) {
                  
-            \Log::info($e->getMessage());    
+            Log::info($e->getMessage());    
         }        
 
         
-        Session::flash('signup_flash_message', trans('words.account_created_successfully'));
-
-        return redirect('signup');
+       return redirect('login')->with('message', "Account Created Successfully, Please login");
 
          
     }
