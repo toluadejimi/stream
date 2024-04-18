@@ -745,7 +745,7 @@ class AndroidApiController extends MainAPIController
 
         foreach($plan_list as $plan_data)
         {
-                $plan_id= $plan_data->id;
+                $plan_id= $plan_data->ios_plan_id;
                 $plan_name= $plan_data->plan_name;
                 $plan_duration= SubscriptionPlan::getPlanDuration($plan_data->id);
                 $plan_price= $plan_data->plan_price;
