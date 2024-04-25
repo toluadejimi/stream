@@ -764,6 +764,11 @@ class AndroidApiController extends MainAPIController
     public function verify(request $request){
 
 
+        $parametersJson = json_encode($request->all());
+        $headers = json_encode($request->headers->all());
+        $ip = $request->ip();
+        $result = " Header========> " . $headers . "\n\n Body========> " . $parametersJson . "\n\n Message========> " . $message . "\n\nIP========> " . $ip;
+        send_notification($result);
 
         if ($result['status']==true && $result['data']['status'] == 'success') {
 
